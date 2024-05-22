@@ -14,7 +14,7 @@ export const Context = createContext(null);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/chat_fb">
+    <BrowserRouter>
       <Context.Provider
         value={{
           firebase,
