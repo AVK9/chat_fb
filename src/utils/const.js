@@ -1,2 +1,4 @@
-export const LOGIN_ROUTE = 'chat_fb/login';
-export const CHAT_ROUTE = 'chat_fb/chat';
+export const LOGIN_ROUTE = '/login';
+export const REGISTER_ROUTE = '/register';
+export const HOME_ROUTE = '/';
+export const CHAT_ROUTE = '/chat';

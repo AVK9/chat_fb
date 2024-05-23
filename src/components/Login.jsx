@@ -1,35 +1,56 @@
-import React, { useContext } from 'react';
-import firebase from 'firebase/compat/app';
-import { Context } from '..';
-import { Box, Button, Container, Grid } from '@mui/material';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setUser } from 'store/slices/userSlice';
+import { Form } from './Form';
+import { LoginWithGoogle } from './LoginWithGoogle';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Box, Container, Grid } from '@mui/material';
+// import { LoginWithGoogle, Form } from '../components';
+import { Padding } from '@mui/icons-material';
 
 export const Login = () => {
-  const { auth } = useContext(Context);
-
-  const login = async () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const { user } = await auth.signInWithPopup(provider);
-    console.log(user);
+  const dispatch = useDispatch();
+  const handleLogin = (email, password) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        console.log(user);
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.accessToken,
+          })
+        );
+      })
+      .catch(() => alert('Invalid user'));
   };
 
   return (
     <Container>
       <Grid
         container
-        style={{ height: window.innerHeight - 50 }}
+        style={{
+          height: window.innerHeight - 50,
+          justifyContent: 'center',
+        }}
         alignItems={'center'}
         justify={'center'}
       >
         <Grid
-          style={{ width: 400, background: 'lightgray' }}
+          style={{
+            width: 400,
+            background: '#fafafa',
+            borderRadius: 20,
+          }}
           container
           alignItems={'center'}
           direction={'column'}
+          padding={1}
         >
-          <Box p={5}>
-            <Button onClick={login} variant={'outlined'}>
-              Login with Google
-            </Button>
+          <Form title="Sign in" handleClick={handleLogin} />
+          <Box>
+            <LoginWithGoogle />
           </Box>
         </Grid>
       </Grid>

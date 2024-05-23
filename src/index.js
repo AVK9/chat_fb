@@ -8,6 +8,9 @@ import reportWebVitals from './reportWebVitals';
 import { auth, firestore } from './services/firebase';
 import firebase from 'firebase/compat/app';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from 'store';
+import './services/firebase';
 
 export const Context = createContext(null);
 
@@ -15,16 +18,18 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Context.Provider
-        value={{
-          firebase,
-          auth,
-          firestore,
-        }}
-      >
-        <Global styles={GlobalStyles} />
-        <App />
-      </Context.Provider>
+      <Provider store={store}>
+        <Context.Provider
+          value={{
+            firebase,
+            auth,
+            firestore,
+          }}
+        >
+          <Global styles={GlobalStyles} />
+          <App />
+        </Context.Provider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

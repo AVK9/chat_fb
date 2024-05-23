@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-// import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import { Navbar } from './components';
 import { AppRouter } from './components/AppRouter';
@@ -18,10 +17,8 @@ function App() {
 
   return (
     <>
-      {/* <BrowserRouter basename="/chat_fb"> */}
       <Navbar />
       <AppRouter />
-      {/* </BrowserRouter> */}
     </>
   );
 }
